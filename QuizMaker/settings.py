@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'uauth'
+    'uauth.apps.UauthConfig',
+    'homepage.apps.HomepageConfig'
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,10 @@ DATABASES = {
 }
 
 
+# Custom User
+
+AUTH_USER_MODEL = 'uauth.CustomUser'
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -117,6 +122,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+APPEND_SLASH=True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
