@@ -89,6 +89,8 @@ DATABASES = {
 # Custom User
 
 AUTH_USER_MODEL = 'uauth.CustomUser'
+LOGIN_REDIRECT_URL = 'homepage'
+LOGOUT_REDIRECT_URL = 'homepage'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

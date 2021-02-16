@@ -1,1 +1,59 @@
-<h1>THIS IS LOGIN</h1>
+{% extends 'homepage/homepage.html' %}
+{% load static%}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'uauth/custom/login.css' %}">
+
+<div class="login-form">
+	<!-- use the form with post method -->
+	<form method="POST">
+		{% csrf_token %}
+		<h2>Login</h2>
+		<!-- form group for login -->
+		<div class="form-group">
+			<div class="input-group">
+				<!-- the input field and the icon are reversed for css selectors trick -->
+				<input
+					type="text"
+					class="form-control {% if form.errors %}is-invalid{% endif %}"
+					name="{{ form.username.name }}"
+					placeholder="Username"
+					required="required"
+					value="{{ form.username.value|default:'' }}">
+				<div class="input-group-prepend">
+					<span class="input-group-text {% if form.errors %}input-group-text-danger{% endif %}">
+						<i class="fa fa-user"></i>
+					</span>
+				</div>
+			</div>
+        </div>
+        <div class="form-group">
+			<div class="input-group">
+				<input
+					type="password"
+					class="form-control {% if form.errors %}is-invalid{% endif %}"
+					name="{{ form.password.name }}"
+					placeholder="Password"
+					required="required">
+				<div class="input-group-prepend">
+					<span class="input-group-text {% if form.errors %}input-group-text-danger{% endif %}">
+						<i class="fa fa-lock"></i>
+					</span>
+				</div>
+			</div>
+			<!-- show any errors -->
+			{% if form.errors %}
+			<div class="text-danger">
+				<small>
+					Please enter a correct username and password.
+					Note that both fields may be case-sensitive.
+				</small>
+			</div>
+			{% endif %}
+        </div>
+		<button type="submit" class="btn btn-primary btn-block btn-lg">Log in</button>
+	</form>
+</div>
+
+{% endblock %}

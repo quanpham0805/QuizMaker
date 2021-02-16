@@ -25,13 +25,22 @@
             <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://github.com/quanpham0805/QuizMaker">About</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="accounts/login/">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="accounts/register/">Register</a>
-            </li>
 
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

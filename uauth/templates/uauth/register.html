@@ -1,1 +1,135 @@
-<h1>THIS IS REGISTER</h1>
+{% extends 'homepage/homepage.html' %}
+{% load static%}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'uauth/custom/register.css' %}">
+
+<div class="register-form">
+	<form method="POST">
+		{% csrf_token %}
+		<h2>Create Account</h2>
+
+		<div class="form-group {% if form.username.errors %}form-group-invalid{% endif %}">
+        	<!-- the input field and the icon are reversed for css selectors trick -->
+			<div class="input-group">
+				<input
+					type="text"
+					class="form-control {% if form.username.errors %}is-invalid{% elif not form.username.errors and form.username.value != NULL %}is-valid{% endif %}"
+					name="{{ form.username.name }}"
+					placeholder="Username"
+					required="required"
+					value="{{ form.username.value|default:'' }}">
+				<div class="input-group-prepend">
+					<span class="input-group-text {% if form.username.errors %}input-group-text-danger{% elif not form.username.errors and form.username.value != NULL %}input-group-text-success{% endif %}">
+						<i class="fa fa-user"></i>
+					</span>
+				</div>
+			</div>
+			<!-- show any error -->
+			{% if form.username.errors %}
+			<div class="text-danger">
+				{% for err in form.username.errors %}
+					<small>
+						{{err}}
+					</small>
+					<br />
+				{% endfor %}
+			</div>
+			{% endif %}
+        </div>
+
+        <div class="form-group {% if form.email.errors %}form-group-invalid{% endif %}">
+        	<!-- the input field and the icon are reversed for css selectors trick -->
+			<div class="input-group">
+				<input
+					type="email"
+					class="form-control {% if form.email.errors %}is-invalid{% elif not form.email.errors and form.email.value != NULL %}is-valid{% endif %}"
+					name="{{ form.email.name }}"
+					placeholder="Email Address"
+					required="required"
+					value="{{ form.email.value|default:'' }}">
+				<div class="input-group-prepend">
+					<span class="input-group-text {% if form.email.errors %}input-group-text-danger{% elif not form.email.errors and form.email.value != NULL %}input-group-text-success{% endif %}">
+						<i class="fa fa-paper-plane"></i>
+					</span>
+				</div>
+			</div>
+			<!-- show any error -->
+			{% if form.email.errors %}
+			<div class="text-danger">
+				{% for err in form.email.errors %}
+					<small>
+						{{err}}
+					</small>
+					<br />
+				{% endfor %}
+			</div>
+			{% endif %}
+        </div>
+
+		<div class="form-group {% if form.password1.errors %}form-group-invalid{% endif %}">
+			<!-- the input field and the icon are reversed for css selectors trick -->
+			<div class="input-group">
+				<input
+					type="password"
+					class="form-control {% if form.password1.errors %}is-invalid{% elif not form.password1.errors and form.password1.value != NULL %}is-valid{% endif %}"
+					name="{{ form.password1.name }}"
+					placeholder="Password"
+					required="required"
+					value="{{ form.password1.value|default:'' }}">
+				<div class="input-group-prepend">
+					<span class="input-group-text {% if form.password1.errors %}input-group-text-danger{% elif not form.password1.errors and form.password1.value != NULL %}input-group-text-success{% endif %}">
+						<i class="fa fa-lock"></i>
+					</span>
+				</div>
+			</div>
+			<!-- show any error -->
+			{% if form.password1.errors %}
+			<div class="text-danger">
+				{% for err in form.password1.errors %}
+					<small>
+						{{err}}
+					</small>
+					<br />
+				{% endfor %}
+			</div>
+			{% endif %}
+        </div>
+
+		<div class="form-group {% if form.password2.errors %}form-group-invalid{% endif %}">
+			<!-- the input field and the icon are reversed for css selectors trick -->
+			<div class="input-group">
+				<input
+					type="password"
+					class="form-control {% if form.password2.errors %}is-invalid{% elif not form.password2.errors and form.password2.value != NULL %}is-valid{% endif %}"
+					name="{{ form.password2.name }}"
+					placeholder="Confirm Password"
+					required="required"
+					value="{{ form.password2.value|default:'' }}">
+				<div class="input-group-prepend">
+					<span class="input-group-text {% if form.password2.errors %}input-group-text-danger{% elif not form.password2.errors and form.password2.value != NULL %}input-group-text-success{% endif %}">
+						<i class="fa fa-lock"></i>
+						<i class="fa fa-check"></i>
+					</span>
+				</div>
+			</div>
+			<!-- show any error -->
+			{% if form.password2.errors %}
+			<div class="text-danger">
+				{% for err in form.password2.errors %}
+					<small>
+						{{err}}
+					</small>
+					<br />
+				{% endfor %}
+			</div>
+			{% endif %}
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+	</form>
+</div>
+
+{% endblock %}
