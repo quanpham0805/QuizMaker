@@ -1,3 +1,8 @@
 div ul .nav-item {
 	min-width: 70px;
 }
+
+.custom-navbar {
+	padding-left: 35px;
+	padding-right: 35px;
+}

@@ -1,0 +1,57 @@
+{% extends 'homepage/homepage.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'quiz_list/custom/addquiz.css' %}">
+
+<div class="container">
+	<div class="card shadow-sm">
+		<div class="card-body">
+			<div class="card-title custom-card-title"><h2>Add quiz</h2></div>
+
+			<form method="POST">
+				{% csrf_token %}
+				<div class="form-group row">
+					<label class="col-2" for="quizTitle">Name</label>
+				    <input class="form-control col-10" type="text" id="quizTitle" required="required">
+				</div>
+
+				<div class="form-group row">
+					<label class="col-2" for="quizLang">Language</label>
+					<select class="custom-select col-10" required="required" id="quizLang">
+						<option selected value="EN">English</option>
+						<option value="ZH">Chinese</option>
+						<option value="FR">French</option>
+						<option value="JA">Japanese</option>
+						<option value="KO">Korean</option>
+						<option value="RU">Russian</option>
+						<option value="VI">Vietnamese</option>
+					</select>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-2">
+						<label class="quiz-time-label" for="quizTime" aria-describedby="tlHelp">Time limit</label>
+						<small id="tlHelp" class="form-text text-muted">in minute, max 1440, 0 for unlimited</small>
+					</div>
+				    <input class="form-control col-10" type="number" id="quizTime" required="required" min="0" max="1440">
+				</div>
+
+				<div class="form-group row">
+					<div class="col-2">
+						<label class="word-list-label" for="wordList" aria-describedby="wlHelp">Word list</label>
+						<small id="wlHelp" class="form-text textm">max 30, each word seperated by a comma</small>
+					</div>
+				    <textarea class="form-control col-10" type="text" id="wordList" required="required" row="3"></textarea>
+				</div>
+
+				<div class="container btn-align">
+					<button type="submit" class="btn btn-info btn-lg">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

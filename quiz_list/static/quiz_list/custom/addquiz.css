@@ -1,0 +1,22 @@
+.card {
+	margin: 25px auto;
+	padding-left: 25px;
+	padding-right: 25px;
+	border-radius: 10px;
+}
+
+.custom-card-title {
+	text-align: center;
+
+}
+.quiz-time-label {
+	margin-bottom: 0;
+}
+
+.word-list-label {
+	margin-bottom: 0;
+}
+
+.btn-align {
+	text-align: center;
+}

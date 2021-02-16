@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'uauth.apps.UauthConfig',
-    'homepage.apps.HomepageConfig'
+    'homepage.apps.HomepageConfig',
+    'quiz_list.apps.QuizListConfig'
 ]
 
 MIDDLEWARE = [
