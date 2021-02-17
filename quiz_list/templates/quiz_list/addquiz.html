@@ -8,25 +8,30 @@
 <div class="container">
 	<div class="card shadow-sm">
 		<div class="card-body">
-			<div class="card-title custom-card-title"><h2>Add quiz</h2></div>
+			<div class="card-title custom-card-title">
+				<h2>Add quiz</h2>
+				{% if form.non_field_errors %}
+					{% for err in form.non_field_errors %}
 
-			<form method="POST">
+					<h6 style="color: red;">{{ err }}</h6>
+
+					{% endfor %}
+				{% endif %}
+			</div>
+			{% if user.is_authenticated %}
+			<form method="POST" action="">
 				{% csrf_token %}
 				<div class="form-group row">
 					<label class="col-2" for="quizTitle">Name</label>
-				    <input class="form-control col-10" type="text" id="quizTitle" required="required" maxlength="50">
+				    <input name="{{form.quiz_name.name}}" class="form-control col-10" type="text" id="quizTitle" required="required" maxlength="50" value="{{ form.quiz_name.value|default:'' }}">
 				</div>
 
 				<div class="form-group row">
 					<label class="col-2" for="quizLang">Language</label>
-					<select class="custom-select col-10" required="required" id="quizLang">
-						<option selected value="EN">English</option>
-						<option value="ZH">Chinese</option>
-						<option value="FR">French</option>
-						<option value="JA">Japanese</option>
-						<option value="KO">Korean</option>
-						<option value="RU">Russian</option>
-						<option value="VI">Vietnamese</option>
+					<select name="{{form.quiz_language.name}}" class="custom-select col-10" required="required" id="quizLang">
+						{% for key, val in form.quiz_language.field.choices %}
+							<option value="{{ key }}"> {{ val }} </option>
+						{% endfor %}
 					</select>
 				</div>
 
@@ -35,21 +40,24 @@
 						<label class="quiz-time-label" for="quizTime" aria-describedby="tlHelp">Time limit</label>
 						<small id="tlHelp" class="form-text text-muted">in minute, max 1440, 0 for unlimited</small>
 					</div>
-				    <input class="form-control col-10" type="number" id="quizTime" required="required" min="0" max="1440">
+				    <input name="{{form.time_limit.name}}" class="form-control col-10" type="number" id="quizTime" required="required" min="0" max="1440" value="{{ form.time_limit.value|default:'' }}">
 				</div>
 
 				<div class="form-group row">
 					<div class="col-2">
 						<label class="word-list-label" for="wordList" aria-describedby="wlHelp">Word list</label>
-						<small id="wlHelp" class="form-text textm">max 30, each word seperated by a comma</small>
+						<small id="wlHelp" class="form-text textm">Separate each keyword with a space. To list two words together, contain them in quotation marks (example: "test tube"). Limit 10 words.</small>
 					</div>
-				    <textarea class="form-control col-10" type="text" id="wordList" required="required" row="3"></textarea>
+				    <textarea name="{{form.word_list.name}}" class="form-control col-10" type="text" id="wordList" required="required" row="3">{{ form.word_list.value|default:'' }}</textarea>
 				</div>
 
 				<div class="container btn-align">
 					<button type="submit" class="btn btn-info btn-lg">Submit</button>
 				</div>
 			</form>
+			{% else %}
+				<h4>Please log in to continue</h4>
+			{% endif %}
 		</div>
 	</div>
 </div>

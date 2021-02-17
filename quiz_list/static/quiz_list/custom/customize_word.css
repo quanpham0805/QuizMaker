@@ -1,0 +1,25 @@
+.header-align {
+	text-align: center;
+	margin-top: 25px;
+}
+
+.card {
+	margin: 25px auto;
+	border-radius: 10px;
+}
+
+.word-pos {
+	margin-top: 10px;
+}
+
+.word-pos-name {
+	margin-left: 1em;
+}
+
+.word-def {
+	margin-left: 2em;
+}
+
+.btn-align {
+	text-align: center;
+}

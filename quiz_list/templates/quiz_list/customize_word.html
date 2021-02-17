@@ -1,0 +1,55 @@
+{% extends 'homepage/homepage.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'quiz_list/custom/customize_word.css' %}">
+
+<div class="container">
+	<div class="header-align container">
+		<h2>Customize words</h2>
+		{% if form.non_field_errors %}
+			<h6 style="color: red;">Please check at least one box, or use valid words</h6>
+		{% endif %}
+	</div>
+
+	<form method="POST">
+		{% csrf_token %}
+		<div class="form-group">
+			{% for word in list_of_words %}
+				<div class="card shadow-sm">
+					<div class="card-body">
+				  		<div class="card-title"><h4>{{ word.word }}</h4></div>
+					  		{% for meanings in word.meanings %}
+								<div class="word-pos">
+									<h5 class="word-pos-name">{{ meanings.partOfSpeech }}</h5>
+									<div class="word-def">
+										{% for definition in meanings.definitions %}
+											<div class="form-check">
+											  	<input class="form-check-input" type="checkbox" name="checked-definition"
+											  	value="{{ definition.checkbox_val }}" id="{{ definition.definition }}">
+											  	<label class="form-check-label" for="{{ definition.definition }}">
+											    	{{ definition.definition }}
+											  	</label>
+											</div>
+										{% endfor %}
+									</div>
+								</div>
+							{% empty %}
+								<div class="word-pos">
+									<h5 class="word-pos-name">No definition found</h5>
+								</div>
+							{% endfor %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="container btn-align">
+			<button type="submit" class="btn btn-info btn-lg">Submit</button>
+		</div>
+	</form>
+
+</div>
+
+{% endblock %}
