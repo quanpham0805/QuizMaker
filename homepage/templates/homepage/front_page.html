@@ -1,0 +1,37 @@
+{% extends 'homepage/homepage.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<script>
+	var played = 0
+	function printLetterByLetter(destination, message, speed){
+	    var i = 0;
+	    var interval = setInterval(function() {
+	        document.getElementById(destination).innerHTML += message.charAt(i);
+	        i++;
+	        if (i > message.length){
+	            clearInterval(interval);
+	            if (played == 0) {
+	            	played = 1
+		            printLetterByLetter("front-subtitle", "Automated multiple choice quiz generator, learning new words at ease", 25);
+	            }
+	        }
+	    }, speed);
+	}
+
+	printLetterByLetter("front-title", "Vocabulary Quiz Maker", 75);
+	// printLetterByLetter("front-subtitle", "Automated multiple choice quiz generator, learning new words at ease", 100);
+
+</script>
+
+<div class="container" style="text-align: center;">
+	<h1 id="front-title" style="margin-top: 25px"></h1>
+	<h4 id="front-subtitle"></h4>
+	<img style="width: 75%;" src="{% static 'homepage/img/sample.gif' %}">
+
+</div>
+
+{% endblock %}

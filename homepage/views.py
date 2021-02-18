@@ -6,4 +6,4 @@ from django.views.generic import TemplateView
 # Create your views here.
 
 class HomePageView(TemplateView):
-	template_name = "homepage/homepage.html"
+	template_name = "homepage/front_page.html"

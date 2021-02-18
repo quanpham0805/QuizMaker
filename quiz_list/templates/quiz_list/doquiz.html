@@ -1,0 +1,72 @@
+{% extends 'homepage/homepage.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'quiz_list/custom/doquiz.css' %}">
+
+{% if time_limit != 0 %}
+<script>
+	var total_time_second = {{ time_limit }} * 60
+
+	function updateTimer() {
+		// alert("tick")
+		var min = Math.floor(total_time_second / 60)
+		var sec = total_time_second % 60
+		document.getElementById('minutes').innerText = min
+		document.getElementById('seconds').innerText = sec
+		total_time_second -= 1
+	}
+	let timerId = setInterval(() => updateTimer(), 1000);
+
+	function submitQuiz() {
+		clearInterval(timerId);
+		document.getElementById('quiz_form').submit()
+	}
+
+	setTimeout(submitQuiz, total_time_second * 1000)
+	// setTimeout(() => { submitQuiz; }, total_time_second * 1000);
+</script>
+
+{% endif %}
+<div class="container">
+	<div class="card shadow-sm">
+		<div class="card-body">
+			<div class="card-title" style="text-align: center;"><h4>Select all that apply</h4></div>
+			<form id="quiz_form" method="POST" action="{% url 'finish' %}">
+				{% csrf_token %}
+				<input name="quiz_name" type="hidden" value="{{ quiz_name }}">
+				<div class="form-group">
+					{% for question in question_list %}
+						<div class="word-question-group">
+							<h5>{{ question.definition }}</h5>
+							<div class="word-selections">
+								{% for selection in question.selection %}
+								<div class="form-check">
+									<input type="hidden" value="{{ selection.choice_list_value }}" name="selection_list">
+									<input name="checked-box" class="form-check-input" type="checkbox" id="{{ selection.id_list }}" value="{{ selection.choice_list_value }}">
+									<label class="form-check-label" for="{{ selection.id_list }}">{{ selection.choice_list }}</label>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					{% endfor %}
+					<div class="container btn-align">
+						<button type="submit" class="btn btn-info btn-lg">Submit</button>
+					</div>
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+{% if time_limit != 0 %}
+<div class="card card-timer">
+	<div class="card-body">
+		<a id="minutes">0 </a> : <a id="seconds">0 </a>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}

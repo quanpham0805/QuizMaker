@@ -5,29 +5,55 @@
 
 <link rel="stylesheet" href="{% static 'quiz_list/custom/quizlist.css' %}">
 
-<style>
-
-</style>
+<script>
+	function confirmDelete(curId) {
+		if (confirm("Are you sure you want to delete this quiz?")) {
+			console.log("YES")
+			// document.getElementById(curId).setAttribute("href", )
+			document.getElementById(curId).submit()
+		} else {
+			console.log("NAH")
+		}
+	}
+</script>
 
 <div class="container">
-	{% for quiz_item in object_list %}
-	<div class="card shadow-sm">
-	  	<div class="card-body">
-	    	<div class="row">
-	    		<div class="col-4">{{ quiz_item.quiz_name }}</div>
-	    		<div class="col-2 "><i class="fa fa-clock-o"></i> {{ quiz_item.time_limit }} mins</div>
-	    		<div class="col-1 "><i class="fa fa-language"></i> {{ quiz_item.quiz_language|upper }} </div>
-	    		<div class="col-2 custom-quizlist-item">Words: {{ quiz_item.words_count }}</div>
-	    		<div class="col-2 ">Best attempt: {{ quiz_item.best_attempt }}</div>
-	    		<div class="col-1 custom-quizlist-item"><a><i class="fa fa-trash"></i></a></div>
-	    	</div>
+	{% if user.is_authenticated %}
+		{% for quiz_item in object_list %}
+		<div class="card shadow-sm">
+		  	<div class="card-body">
+		    	<div class="row">
+		    		<div class="col-3">{{ quiz_item.quiz_name }}</div>
+		    		<div class="col-2 "><i class="fa fa-clock-o"></i> {{ quiz_item.time_limit }} mins</div>
+		    		<div class="col-1 "><i class="fa fa-language"></i> {{ quiz_item.quiz_language|upper }} </div>
+		    		<div class="col-2 custom-quizlist-item">Words: {{ quiz_item.words_count }}</div>
+		    		<div class="col-2 ">Best attempt: {{ quiz_item.best_attempt }}</div>
+		    		<div class="col-1 custom-quizlist-item">
+		    			<form id="{{ quiz_item.quiz_name }}" method="POST" action="{% url 'delete_word' %}">
+		    				{% csrf_token %}
+		    				<input name="selected_quiz" type="hidden" value="{{ quiz_item.quiz_name }}">
+		    				<a class="delete-button" onclick="confirmDelete('{{ quiz_item.quiz_name }}')">
+		    					<i class="fa fa-trash"></i>
+		    				</a>
+		    			</form>
+		    		</div>
+		    		<div class="col-1 custom-quizlist-item">
+		    			<form method="POST" action="{% url 'do_quiz' %}">
+		    				{% csrf_token %}
+		    				<input name="quiz_to_do" type="hidden" value="{{ quiz_item.quiz_name }}" >
+			    			<button type="submit" class="btn btn-success btn-block">Go</button>
+		    			</form>
+		    		</div>
+		    	</div>
+			</div>
 		</div>
-	</div>
 
-	{%empty%}
-		<h3>Empty</h3>
-
-	{% endfor %}
+		{%empty%}
+			<h3>Empty</h3>
+		{% endfor %}
+	{% else %}
+		<h4>Please log in to continue</h4>
+	{% endif %}
 
 </div>
 
