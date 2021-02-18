@@ -1,0 +1,23 @@
+.card {
+	margin: 25px auto;
+	border-radius: 10px;
+}
+.word-selections {
+	margin-left: 1em;
+}
+
+.word-question-group {
+	margin-top: 25px;
+}
+
+.btn-align {
+	text-align: center;
+	margin-top: 25px;
+}
+
+.card-timer {
+	right: 5px;
+	bottom: 5px;
+	position: fixed;
+	border: 2px solid black ;
+}

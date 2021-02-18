@@ -1,0 +1,25 @@
+.card {
+	margin: 25px auto;
+	border-radius: 10px;
+}
+
+.card:hover {
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.custom-quizlist-item {
+	text-align: center;
+}
+
+.delete-button {
+	color: black;
+}
+
+.delete-button i:hover {
+	border: 1px;
+	border-style: solid;
+	border-color: black;
+	color: red;
+	border-radius: 2px;
+	cursor: pointer;
+}
